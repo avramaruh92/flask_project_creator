@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Node modules
+node_modules/
+
+# Sass cache
+.sass-cache/
+
+# VS Code settings
+.vscode/
+
+# Distribution folders
+dist/
+build/
+
+# Logs
+*.log
+
+# Mac/Linux
+.DS_Store
