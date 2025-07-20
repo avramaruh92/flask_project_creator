@@ -1,8 +1,3 @@
-Here is your complete and **paste-ready `PROJECT_REQUIREMENTS.md`** file:
-
----
-
-````markdown
 # 📦 Project Requirements
 
 This document outlines the required tools, dependencies, and environment setup for running a Flask project generated using the custom project generator script.
