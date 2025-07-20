@@ -1,8 +1,3 @@
-Here is your complete, **single-file `PROJECT_DOCUMENTATION.md`**, fully updated and ready to paste:
-
----
-
-```markdown
 # 📖 Project Documentation
 
 This project is a full-featured, modern Flask application scaffolded using a custom Python generator script.
