@@ -1,6 +1,11 @@
 import subprocess
 import sys
 import shutil
+from pathlib import Path
+
+def load_template(filename, subdir="template_files"):
+    """Load external template content from a file relative to the script location"""
+    return (Path(__file__).parent / subdir / filename).read_text(encoding="utf-8")
 
 def run_command(command, cwd=None):
     print(f"> {command}")

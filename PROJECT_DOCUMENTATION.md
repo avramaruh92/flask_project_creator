@@ -1,60 +1,190 @@
-# 📚 Flask Project Creator – Module Guide
-
-This documentation explains how the four Python modules work together.
+Here is your complete, **single-file `PROJECT_DOCUMENTATION.md`**, fully updated and ready to paste:
 
 ---
 
-## 🧩 1. `create_project.py`
+```markdown
+# 📖 Project Documentation
 
-- CLI launcher
-- Parses target path
-- Calls `setup_project(path)`
+This project is a full-featured, modern Flask application scaffolded using a custom Python generator script.
 
----
+It aims to offer a plug-and-play structure for quickly launching scalable, maintainable web apps with support for:
 
-## 📁 2. `structure.py`
-
-- Defines:
-  - `folders`: All directories to generate
-  - `files`: Key file templates (HTML, SCSS, JS, config)
-
-> You can customize the generated structure here.
+- 🧩 Blueprint-based Flask routing  
+- 🎨 Modular SCSS compilation (via Sass)  
+- 🖥️ VS Code developer automation  
+- 📄 Jinja templating engine  
+- 🔐 Environment variable management  
+- ⚙️ Task runner integration
 
 ---
 
-## 🧰 3. `utils.py`
+## 🏗️ Project Folder Structure
 
-Reusable helpers:
-- `run_command()` — Run shell commands safely
-- `safe_write()` — Only create file if it doesn’t exist
-- `check_tool_installed()` — Ensure tools like `python` and `npm` are available
+```
+
+MyFlaskApp/
+├── app/
+│   ├── **init**.py              # Application factory
+│   ├── routes/                  # Flask Blueprints
+│   │   ├── **init**.py
+│   │   └── main.py
+│   ├── models/                  # ORM / DB structure
+│   │   └── **init**.py
+│   ├── templates/               # Jinja2 templates
+│   │   ├── base.html
+│   │   └── index.html
+│   └── static/                  # Compiled CSS & JS
+│       ├── css/
+│       │   └── main.css
+│       └── js/
+│           └── main.js
+├── scss/                        # Source SCSS files
+│   ├── main.scss
+│   ├── abstracts/\_variables.scss
+│   └── base/\_base.scss
+├── .env                         # Flask environment settings
+├── run.py                       # Entry point
+├── package.json                 # npm config for Sass
+└── .vscode/tasks.json           # VS Code task automation
+
+````
 
 ---
 
-## ⚙ 4. `setup.py`
+## ⚙️ Environment Configuration
 
-Handles the full setup:
-- Creates folders
-- Writes files
-- Initializes Python venv
-- Installs pip packages
-- Sets up npm, installs Sass/Prettier/ESLint
-- Modifies `package.json` to include `sass` watch script
+**`.env` File**
 
----
+```env
+FLASK_APP=run.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key
+OPENAI_API_KEY=
+````
 
-## 🛠 Customize & Extend
-
-You can:
-- Add auth templates to `structure.py`
-- Write more helpers in `utils.py`
-- Expand `setup.py` to support Docker or testing
+These variables are loaded at runtime via `python-dotenv`.
 
 ---
 
-## 🧠 Tip
+## 💻 Developer Workflow
 
-Use this script as a template for:
-- Flask + API backends
-- Full-stack starter kits
-- Teaching and workshops
+### 📦 Setup
+
+```bash
+# Run generator
+python path/to/create_project.py "G:\Projects\MyFlaskApp"
+
+cd G:\Projects\MyFlaskApp
+venv\Scripts\activate
+npm install
+```
+
+---
+
+### 🔁 Live Development
+
+```bash
+npm run sass      # Start SCSS watch
+flask run         # Start Flask server
+```
+
+Or use VS Code Tasks:
+
+```
+Ctrl + Shift + B → “Run Flask App” or “Watch SCSS”
+```
+
+---
+
+## 🎨 Working with SCSS
+
+SCSS source files live in `scss/` and compile to `app/static/css/main.css`.
+
+**To add a new style module:**
+
+1. Create a partial, e.g. `scss/components/_buttons.scss`
+2. Import it in `main.scss`:
+
+```scss
+@use 'components/buttons';
+```
+
+3. Save → Sass automatically updates `main.css`
+
+---
+
+## 🧭 How Routing Works
+
+* All routes are registered in Blueprints (e.g. `routes/main.py`)
+* These are loaded in `app/__init__.py`
+* Example route:
+
+```python
+@bp.route('/')
+def index():
+    return render_template("index.html")
+```
+
+---
+
+## 🧪 Testing Your Setup
+
+Once the project is generated and installed:
+
+```bash
+cd MyFlaskApp
+venv\Scripts\activate
+npm run sass
+flask run
+```
+
+Open [http://localhost:5000](http://localhost:5000) in your browser.
+
+You should see:
+
+* A heading from `index.html`
+* CSS applied via `main.css`
+* No 404s from missing static files
+
+---
+
+## 🧱 How to Extend the App
+
+| Area             | Recommendation                                            |
+| ---------------- | --------------------------------------------------------- |
+| Routing          | Add new `.py` files in `routes/`, register new Blueprints |
+| HTML Templates   | Add Jinja files in `templates/`                           |
+| SCSS Modules     | Use `scss/components/`, then import them into `main.scss` |
+| JS Functionality | Add JS in `app/static/js/`                                |
+| Secrets & Config | Store in `.env`, load via `os.environ`                    |
+
+---
+
+## 🔐 Security Notes
+
+* Keep secrets (e.g., API keys) in `.env` and do **not commit** this file to Git
+* Add `.env` and `venv/` to `.gitignore` automatically
+* Use `python-dotenv` only in dev, or secure config loading in production
+
+---
+
+## ✅ Summary
+
+This Flask generator provides:
+
+* Clean app structure
+* SCSS asset pipeline
+* VS Code integration
+* Fast development startup
+* Extensible, maintainable codebase
+
+It’s ideal for projects that need:
+
+* Clean frontend/backend separation
+* Auto-reloading
+* Developer-first UX
+
+Feel free to customize and build on top of it.
+
+```
+
