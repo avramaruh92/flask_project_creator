@@ -17,7 +17,7 @@ This is a plug-and-play **Flask project generator** that scaffolds a full-featur
 From your terminal:
 
 ```bash
-python G:\Projects\project_creator\create_project.py "G:\Projects\MyFlaskApp"
+python "Your_full_script_path(inside quotation marks)" "The_path_you_want_your_project_to_be_created(inside quotation marks)"
 ````
 
 Then:
@@ -149,7 +149,7 @@ They can run in parallel from the terminal or VS Code.
 cd G:\Projects\MyFlaskApp
 venv\Scripts\activate
 npm run sass
-flask run
+flask run --debug
 ```
 
 Visit:
