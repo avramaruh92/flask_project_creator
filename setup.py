@@ -4,12 +4,35 @@ import json
 from pathlib import Path
 from structure import folders, files
 from utils import run_command, safe_write, check_tool_installed
+import platform
+from pathlib import Path
+
+def get_venv_executables(base_path):
+    is_windows = platform.system() == "Windows"
+    scripts_folder = "Scripts" if is_windows else "bin"
+
+    venv_path = base_path / "venv"
+    python_path = venv_path / scripts_folder / ("python.exe" if is_windows else "python")
+    pip_path = venv_path / scripts_folder / ("pip.exe" if is_windows else "pip")
+    flask_path = venv_path / scripts_folder / ("flask.exe" if is_windows else "flask")
+
+    return {
+        "venv_path": venv_path,
+        "python": python_path,
+        "pip": pip_path,
+        "flask": flask_path
+    }
+
 
 def setup_project(path):
     base_path = Path(path).resolve()
     is_windows = os.name == "nt"
 
     print(f"\n📁 Setting up project at: {base_path}")
+    executables = get_venv_executables(base_path)
+    pip = executables["pip"]
+    flask = executables["flask"]
+
 
     # Tool checks
     check_tool_installed("python")
@@ -38,7 +61,9 @@ def setup_project(path):
     print("🐍 Creating virtual environment...")
     run_command("python -m venv venv", cwd=base_path)
 
-    pip = base_path / "venv" / ("Scripts" if is_windows else "bin") / "pip"
+    executables = get_venv_executables(base_path)
+    pip = executables["pip"]
+
     run_command(f"{pip} install Flask Flask-WTF Flask-SQLAlchemy Flask-Migrate Flask-Login python-dotenv libsass", cwd=base_path)
     run_command(f"{pip} freeze > requirements.txt", cwd=base_path)
 
@@ -55,6 +80,10 @@ def setup_project(path):
     print(f"\n✅ Project created successfully at: {base_path}")
     print("👉 Next steps:")
     print(f"  cd {base_path}")
-    print("  venv\\Scripts\\activate  # or source venv/bin/activate")
+    if is_windows:
+        print("  venv\\Scripts\\activate")
+    else:
+        print("  source venv/bin/activate")
+
     print("  npm run sass")
     print("  flask run")
