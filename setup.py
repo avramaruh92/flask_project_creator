@@ -5,14 +5,15 @@ from pathlib import Path
 from structure import folders, files
 from utils import run_command, safe_write, check_tool_installed
 import platform
-from pathlib import Path
+import sys
+
 
 def get_venv_executables(base_path):
     is_windows = platform.system() == "Windows"
     scripts_folder = "Scripts" if is_windows else "bin"
 
     venv_path = base_path / "venv"
-    python_path = venv_path / scripts_folder / ("python.exe" if is_windows else "python")
+    python_path = venv_path / scripts_folder / ("python.exe" if is_windows else "python3")
     pip_path = venv_path / scripts_folder / ("pip.exe" if is_windows else "pip")
     flask_path = venv_path / scripts_folder / ("flask.exe" if is_windows else "flask")
 
@@ -33,9 +34,7 @@ def setup_project(path):
     pip = executables["pip"]
     flask = executables["flask"]
 
-
     # Tool checks
-    check_tool_installed("python")
     check_tool_installed("npm")
 
     # Handle existing directory
@@ -59,7 +58,7 @@ def setup_project(path):
 
     # Create virtual environment
     print("🐍 Creating virtual environment...")
-    run_command("python -m venv venv", cwd=base_path)
+    run_command(f"{sys.executable} -m venv venv", cwd=base_path)
 
     executables = get_venv_executables(base_path)
     pip = executables["pip"]
