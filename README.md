@@ -69,6 +69,97 @@ MyFlaskApp/
 
 ---
 
+# ✅ macOS Setup Instructions for Flask Project Creator
+
+This section supplements the existing setup instructions to ensure smooth use of the Flask Project Creator on macOS systems.
+
+---
+
+## 🚀 How to Generate a Project (macOS)
+
+From your terminal:
+
+```bash
+cd path/to/flask_project_creator
+python3 create_project.py /Users/yourname/your-new-project
+```
+
+Then:
+
+```bash
+cd /Users/yourname/your-new-project
+source venv/bin/activate
+npm install
+npm run sass
+flask run
+```
+
+Visit: [http://localhost:5000](http://localhost:5000)
+
+You should see:
+- ✔️ Homepage rendered
+- ✔️ CSS applied
+- ✔️ Flask running with auto-reload
+
+---
+
+## ✅ macOS Tips
+
+### 🐍 Use `python3` not `python`
+macOS comes with a system Python that may be outdated. Always use:
+```bash
+python3
+```
+
+### 📂 Virtual Environment Activation
+```bash
+source venv/bin/activate
+```
+(Not `venv\Scripts\activate`, which is for Windows.)
+
+### 📦 npm and Node
+To check if Node and npm are installed:
+```bash
+node -v
+npm -v
+```
+If not:
+```bash
+brew install node
+```
+
+---
+
+## 🧠 Updating VSCode Task Runner (macOS)
+
+To make VS Code tasks compatible, update `.vscode/tasks.json`:
+
+```json
+"command": "venv/bin/python3"
+```
+Instead of the default Windows-style path:
+```json
+"command": "venv\\Scripts\\python"
+```
+
+---
+
+## 📝 Example Project Creation
+```bash
+python3 create_project.py /Users/avi/auth-app
+```
+Then:
+```bash
+cd /Users/avi/auth-app
+source venv/bin/activate
+npm install
+npm run sass
+flask run
+```
+
+---
+
+
 ## 📦 Requirements
 
 ### ✅ Runtime Tools
